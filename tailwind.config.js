@@ -15,6 +15,10 @@ module.exports = {
       colors: {
         side: "#141514",
       },
+      height: {
+        lp: "490px",
+        phn: "600px",
+      },
     },
   },
   plugins: [],
