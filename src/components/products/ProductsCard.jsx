@@ -2,15 +2,21 @@ import Image from "next/image";
 import React from "react";
 import { FaStar } from "react-icons/fa";
 
-const ProductsCard = ({ pdata }) => {
+const ProductsCard = ({ pdata, addToCart }) => {
+  const handleAddToCart = (product) => {
+    // console.log("Adding to cart:", product);
+    addToCart(product);
+  };
+
   return (
-    <div className="h-phn sm:h-lp flex flex-wrap gap-3 justify-center sm:justify-between items-center overflow-scroll">
+    <div className="h-phn sm:h-left flex flex-wrap gap-y-3 gap-x-20 justify-center sm:justify-stretch items-start overflow-scroll">
       {pdata &&
         pdata.map((p) => {
           return (
             <div
               key={p.product_id}
-              className="w-60 h-fit p-3 bg-white flex gap-2 rounded-md shadow-sm"
+              className="w-60 h-fit p-3 bg-white flex gap-2 rounded-md shadow-md cursor-pointer"
+              onClick={() => handleAddToCart(p)}
             >
               <div>
                 <Image

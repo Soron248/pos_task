@@ -16,7 +16,8 @@ module.exports = {
         side: "#141514",
       },
       height: {
-        lp: "490px",
+        left: "490px",
+        right: "550px",
         phn: "600px",
       },
     },
