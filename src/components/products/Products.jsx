@@ -1,10 +1,27 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import data from "@/util/products_data.json";
-import Image from "next/image";
 import { CiSearch } from "react-icons/ci";
 import ProductsCard from "./ProductsCard";
 
 const Products = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [pdata, setPdata] = useState(data);
+
+  // Function to handle search input change
+  const handleSearchInputChange = (event) => {
+    setSearchQuery(event.target.value);
+    filterProducts(event.target.value);
+  };
+
+  // Function to filter products based on search query
+  const filterProducts = (query) => {
+    const filteredProducts = data.products.filter((product) =>
+      product.product_name.toLowerCase().includes(query.toLowerCase())
+    );
+    setPdata({ products: filteredProducts });
+  };
+
   return (
     <div className="w-full h-fit ">
       <div className="sm:w-2/3 h-full">
@@ -14,9 +31,11 @@ const Products = () => {
             type="text"
             placeholder="Search here..."
             className="outline-none w-full placeholder:text-gray-500"
+            value={searchQuery}
+            onChange={handleSearchInputChange}
           />
         </div>
-        <ProductsCard pdata={data.products} />
+        <ProductsCard pdata={pdata.products} />
       </div>
     </div>
   );
