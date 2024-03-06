@@ -2,11 +2,11 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
+import Bills from "./Bills";
 
-const Cart = ({ items, removeFromCart }) => {
-  const [cartItems, setCartItems] = useState([items]);
+const Cart = ({ items, removeFromCart, removeAll }) => {
+  const [cartItems, setCartItems] = useState([]);
 
-  // Update cartItems state when items prop changes
   useEffect(() => {
     setCartItems(items);
   }, [items]);
@@ -29,19 +29,31 @@ const Cart = ({ items, removeFromCart }) => {
     removeFromCart(productId);
   };
 
+  const handleClearAll = () => {
+    removeAll();
+  };
+
+  // Calculate subtotal price
+  const subtotal = cartItems.reduce(
+    (acc, item) => acc + item.product_price * item.quantity,
+    0
+  );
+
   return (
     <div className="bg-white w-full h-right rounded-md p-5 shadow-lg">
       <div className="flex justify-between mb-5">
         <h1 className="font-bold">Order #007 </h1>
-        <p className="text-gray-500">Clear All</p>
+        <p className="text-gray-500 cursor-pointer" onClick={handleClearAll}>
+          Clear All
+        </p>
       </div>
 
-      <div className="h-72 overflow-scroll flex flex-col gap-2">
-        {cartItems &&
+      <div className="h-72 overflow-scroll flex flex-col gap-2 mb-5">
+        {cartItems.length ? (
           cartItems.map((i, index) => {
             return (
               <section
-                className=" flex justify-between items-center "
+                className="flex justify-between items-center"
                 key={i.product_id}
               >
                 <div className="flex items-center gap-2">
@@ -55,12 +67,13 @@ const Cart = ({ items, removeFromCart }) => {
                   <div>
                     <h2>{i.product_name}</h2>
                     <p className="font-semibold text-sm">
-                      TK {i.product_price} + VAT
+                      {i.product_price} x {i.quantity} = TK{" "}
+                      {i.product_price * i.quantity}
                     </p>
                   </div>
                 </div>
 
-                {/* quantity */}
+                {/* Quantity */}
                 <div className="flex gap-3">
                   <button
                     className="bg-side size-6 rounded-full text-white font-bold"
@@ -82,8 +95,20 @@ const Cart = ({ items, removeFromCart }) => {
                 </div>
               </section>
             );
-          })}
+          })
+        ) : (
+          <p className="bg-yellow-500 text-center w-fit m-auto p-2 font-bold text-white rounded-full">
+            Your cart is empty !
+          </p>
+        )}
       </div>
+      {cartItems.length ? (
+        <div>
+          <Bills subtotal={subtotal} />
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

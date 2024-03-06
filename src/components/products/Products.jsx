@@ -26,15 +26,28 @@ const Products = () => {
   };
 
   // Function to handle adding product to cart
+  // Function to handle adding product to cart
   const addToCart = (product) => {
-    // Check if the product already exists in the cart
-    const isProductInCart = cartItems.some(
+    const existingItem = cartItems.find(
       (item) => item.product_id === product.product_id
     );
-
-    // If the product is not already in the cart, add it
-    if (!isProductInCart) {
-      setCartItems((prevItems) => [...prevItems, product]);
+    if (existingItem) {
+      // If the product already exists in the cart, update its quantity to the original quantity
+      const originalQuantity = data.products.find(
+        (p) => p.product_id === product.product_id
+      ).quantity;
+      setCartItems((prevItems) => {
+        const updatedItems = prevItems.map((item) => {
+          if (item.product_id === product.product_id) {
+            item.quantity = Math.min(originalQuantity, item.quantity + 1);
+          }
+          return item;
+        });
+        return updatedItems;
+      });
+    } else {
+      // If the product doesn't exist in the cart, add it with a quantity of 1
+      setCartItems((prevItems) => [...prevItems, { ...product, quantity: 1 }]);
     }
   };
 
@@ -43,6 +56,11 @@ const Products = () => {
     setCartItems((prevItems) =>
       prevItems.filter((item) => item.product_id !== productId)
     );
+  };
+
+  // Function to handle removing all product from cart
+  const removeAll = () => {
+    setCartItems([]);
   };
 
   return (
@@ -63,7 +81,11 @@ const Products = () => {
       </div>
 
       <div className="sm:w-1/3 h-full hidden sm:inline-block">
-        <Cart items={cartItems} removeFromCart={removeFromCart} />
+        <Cart
+          items={cartItems}
+          removeFromCart={removeFromCart}
+          removeAll={removeAll}
+        />
       </div>
     </div>
   );
