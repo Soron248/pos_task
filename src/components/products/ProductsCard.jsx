@@ -13,7 +13,7 @@ const ProductsCard = ({ pdata, addToCart }) => {
       {pdata &&
         pdata.map((p) => {
           return (
-            <div
+            <section
               key={p.product_id}
               className="w-60 h-fit p-3 bg-white flex gap-2 rounded-md shadow-md cursor-pointer"
               onClick={() => handleAddToCart(p)}
@@ -40,7 +40,7 @@ const ProductsCard = ({ pdata, addToCart }) => {
                   </span>
                 </div>
               </div>
-            </div>
+            </section>
           );
         })}
     </div>

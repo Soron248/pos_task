@@ -27,7 +27,22 @@ const Products = () => {
 
   // Function to handle adding product to cart
   const addToCart = (product) => {
-    setCartItems((prevItems) => [...prevItems, product]);
+    // Check if the product already exists in the cart
+    const isProductInCart = cartItems.some(
+      (item) => item.product_id === product.product_id
+    );
+
+    // If the product is not already in the cart, add it
+    if (!isProductInCart) {
+      setCartItems((prevItems) => [...prevItems, product]);
+    }
+  };
+
+  // Function to handle removing product from cart
+  const removeFromCart = (productId) => {
+    setCartItems((prevItems) =>
+      prevItems.filter((item) => item.product_id !== productId)
+    );
   };
 
   return (
@@ -48,7 +63,7 @@ const Products = () => {
       </div>
 
       <div className="sm:w-1/3 h-full hidden sm:inline-block">
-        <Cart items={cartItems} />
+        <Cart items={cartItems} removeFromCart={removeFromCart} />
       </div>
     </div>
   );

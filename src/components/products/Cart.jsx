@@ -1,14 +1,33 @@
+"use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 
-const Cart = ({ items }) => {
+const Cart = ({ items, removeFromCart }) => {
   const [cartItems, setCartItems] = useState([items]);
 
   // Update cartItems state when items prop changes
   useEffect(() => {
     setCartItems(items);
   }, [items]);
+
+  const handleIncrement = (index) => {
+    const updatedCartItems = [...cartItems];
+    updatedCartItems[index].quantity++;
+    setCartItems(updatedCartItems);
+  };
+
+  const handleDecrement = (index) => {
+    const updatedCartItems = [...cartItems];
+    if (updatedCartItems[index].quantity > 1) {
+      updatedCartItems[index].quantity--;
+      setCartItems(updatedCartItems);
+    }
+  };
+
+  const handleRemoveFromCart = (productId) => {
+    removeFromCart(productId);
+  };
 
   return (
     <div className="bg-white w-full h-right rounded-md p-5 shadow-lg">
@@ -19,9 +38,9 @@ const Cart = ({ items }) => {
 
       <div className="h-72 overflow-scroll flex flex-col gap-2">
         {cartItems &&
-          cartItems.map((i) => {
+          cartItems.map((i, index) => {
             return (
-              <div
+              <section
                 className=" flex justify-between items-center "
                 key={i.product_id}
               >
@@ -43,16 +62,25 @@ const Cart = ({ items }) => {
 
                 {/* quantity */}
                 <div className="flex gap-3">
-                  <button className="bg-side size-6 rounded-full text-white font-bold">
+                  <button
+                    className="bg-side size-6 rounded-full text-white font-bold"
+                    onClick={() => handleDecrement(index)}
+                  >
                     -
                   </button>
-                  <span className="font-semibold">0</span>
-                  <button className="bg-side size-6 rounded-full text-white font-bold">
+                  <span className="font-semibold">{i.quantity}</span>
+                  <button
+                    className="bg-side size-6 rounded-full text-white font-bold"
+                    onClick={() => handleIncrement(index)}
+                  >
                     +
                   </button>
-                  <MdDeleteForever className="text-red-500 size-6 cursor-pointer" />
+                  <MdDeleteForever
+                    className="text-red-500 size-6 cursor-pointer"
+                    onClick={() => handleRemoveFromCart(i.product_id)}
+                  />
                 </div>
-              </div>
+              </section>
             );
           })}
       </div>

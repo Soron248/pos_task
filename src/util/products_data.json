@@ -5,63 +5,72 @@
       "product_name": "Men's Hoodie",
       "product_image": "/images/p1.jpg",
       "product_price": 599,
-      "rating": 4.5
+      "rating": 4.5,
+      "quantity": 1
     },
     {
       "product_id": "002",
       "product_name": "Women's Dress",
       "product_image": "/images/p2.jpg",
       "product_price": 1299,
-      "rating": 4.8
+      "rating": 4.8,
+      "quantity": 1
     },
     {
       "product_id": "003",
       "product_name": "Men's Jeans",
       "product_image": "/images/p3.jpeg",
       "product_price": 999,
-      "rating": 4.2
+      "rating": 4.2,
+      "quantity": 1
     },
     {
       "product_id": "004",
       "product_name": "Women's Jacket",
       "product_image": "/images/p4.jpg",
       "product_price": 1999,
-      "rating": 4.5
+      "rating": 4.5,
+      "quantity": 1
     },
     {
       "product_id": "005",
       "product_name": "T-Shirt",
       "product_image": "/images/p5.jpg",
       "product_price": 599,
-      "rating": 4.6
+      "rating": 4.6,
+      "quantity": 1
     },
     {
       "product_id": "006",
       "product_name": "Shirt",
       "product_image": "/images/p6.jpg",
       "product_price": 1299,
-      "rating": 3.8
+      "rating": 3.8,
+      "quantity": 1
     },
     {
       "product_id": "007",
       "product_name": "Shoe",
       "product_image": "/images/p7.jpg",
       "product_price": 999,
-      "rating": 4.2
+      "rating": 4.2,
+      "quantity": 1
     },
     {
       "product_id": "008",
       "product_name": "Drop Shoulder",
       "product_image": "/images/p8.jpeg",
       "product_price": 199,
-      "rating": 3.5
+      "rating": 3.5,
+      "quantity": 1
     },
     {
       "product_id": "009",
       "product_name": "Women's Style",
       "product_image": "/images/p2.jpg",
       "product_price": 1299,
-      "rating": 4.8
+      "rating": 4.8,
+      "quantity": 1
     }
   ]
 }
