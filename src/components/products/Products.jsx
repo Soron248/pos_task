@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import data from "@/util/products_data.json";
 import { CiSearch } from "react-icons/ci";
+import { FaCartArrowDown } from "react-icons/fa6";
 import ProductsCard from "./ProductsCard";
 import Cart from "./Cart";
 
@@ -25,7 +26,6 @@ const Products = () => {
     setPdata({ products: filteredProducts });
   };
 
-  // Function to handle adding product to cart
   // Function to handle adding product to cart
   const addToCart = (product) => {
     const existingItem = cartItems.find(
@@ -64,7 +64,7 @@ const Products = () => {
   };
 
   return (
-    <div className="w-full h-fit flex gap-10">
+    <div className="w-full h-fit flex gap-10 relative">
       <div className="sm:w-2/3 h-full">
         <div className="w-full flex items-center gap-3 bg-white rounded-md overflow-hidden p-2 mb-5 shadow-md">
           <CiSearch className="text-2xl text-gray-700" />
@@ -76,7 +76,8 @@ const Products = () => {
             onChange={handleSearchInputChange}
           />
         </div>
-        {/* Pass addToCart function as a prop */}
+
+        {/* Passing addToCart function as a prop */}
         <ProductsCard pdata={pdata.products} addToCart={addToCart} />
       </div>
 
@@ -87,6 +88,35 @@ const Products = () => {
           removeAll={removeAll}
         />
       </div>
+
+      <div className="absolute sm:hidden bg-side  p-2 rounded-full bottom-0 right-0 cursor-pointer">
+        <div className="w-full h-full relative">
+          <button
+            onClick={() => document.getElementById("my_modal_3").showModal()}
+          >
+            <FaCartArrowDown className="text-xl text-white" />
+          </button>
+          <span className="size-4 rounded-full bg-blue-500 absolute -top-2 -left-2 flex justify-center items-center text-xs text-white">
+            {cartItems.length}
+          </span>
+        </div>
+      </div>
+
+      <dialog id="my_modal_3" className="modal">
+        <div className="modal-box bg-white">
+          <form method="dialog">
+            {/* if there is a button in form, it will close the modal */}
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+              ✕
+            </button>
+          </form>
+          <Cart
+            items={cartItems}
+            removeFromCart={removeFromCart}
+            removeAll={removeAll}
+          />
+        </div>
+      </dialog>
     </div>
   );
 };

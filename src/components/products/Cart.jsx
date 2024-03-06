@@ -2,6 +2,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
+import { GiCardboardBox } from "react-icons/gi";
 import Bills from "./Bills";
 
 const Cart = ({ items, removeFromCart, removeAll }) => {
@@ -97,8 +98,8 @@ const Cart = ({ items, removeFromCart, removeAll }) => {
             );
           })
         ) : (
-          <p className="bg-yellow-500 text-center w-fit m-auto p-2 font-bold text-white rounded-full">
-            Your cart is empty !
+          <p className="bg-gray-400 text-center w-fit m-auto p-2 font-bold text-white rounded-full">
+            <GiCardboardBox className="text-9xl" />
           </p>
         )}
       </div>
